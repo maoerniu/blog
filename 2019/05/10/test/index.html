@@ -79,17 +79,14 @@
 
 
 
-<meta name="description" content="安装Hexo首先安装nodejs环境，官网下载安装即可https://nodejs.org/en/ 初始化blog项目新建一个目录，如Blog，然后进入目录并运行1$ hexo init 在github上创建博客项目(repository name)如：blog 配置blog项目的发布方式安装git发布插件1$ npm install hexo-deployer-git --save 打开文件_c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MAC上使用Hexo+github搭建个人博客">
-<meta property="og:url" content="http://yoursite.com/2019/03/28/MAC上使用Hexo-github搭建自己的博客，添加主题，安装后台管理/index.html">
+<meta property="og:title" content="test">
+<meta property="og:url" content="http://yoursite.com/2019/05/10/test/index.html">
 <meta property="og:site_name" content="二牛的博客">
-<meta property="og:description" content="安装Hexo首先安装nodejs环境，官网下载安装即可https://nodejs.org/en/ 初始化blog项目新建一个目录，如Blog，然后进入目录并运行1$ hexo init 在github上创建博客项目(repository name)如：blog 配置blog项目的发布方式安装git发布插件1$ npm install hexo-deployer-git --save 打开文件_c">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-28T00:59:59.518Z">
+<meta property="og:updated_time" content="2019-05-10T15:10:24.885Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MAC上使用Hexo+github搭建个人博客">
-<meta name="twitter:description" content="安装Hexo首先安装nodejs环境，官网下载安装即可https://nodejs.org/en/ 初始化blog项目新建一个目录，如Blog，然后进入目录并运行1$ hexo init 在github上创建博客项目(repository name)如：blog 配置blog项目的发布方式安装git发布插件1$ npm install hexo-deployer-git --save 打开文件_c">
+<meta name="twitter:title" content="test">
 
 
 
@@ -119,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/28/MAC上使用Hexo-github搭建自己的博客，添加主题，安装后台管理/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/10/test/">
 
 
 
 
 
-  <title>MAC上使用Hexo+github搭建个人博客 | 二牛的博客</title>
+  <title>test | 二牛的博客</title>
   
 
 
@@ -262,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/MAC上使用Hexo-github搭建自己的博客，添加主题，安装后台管理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/test/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="毛二牛">
@@ -279,7 +276,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MAC上使用Hexo+github搭建个人博客</h1>
+          <h1 class="post-title" itemprop="name headline">test</h1>
         
 
         <div class="post-meta">
@@ -291,8 +288,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-28T00:27:00+08:00">
-                2019-03-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-10T23:10:00+08:00">
+                2019-05-10
               </time>
             
 
@@ -329,23 +326,7 @@
       
 
       
-        <h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>首先安装nodejs环境，官网下载安装即可<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a></p>
-<h5 id="初始化blog项目"><a href="#初始化blog项目" class="headerlink" title="初始化blog项目"></a>初始化blog项目</h5><p>新建一个目录，如Blog，然后进入目录并运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure></p>
-<p>在github上创建博客项目(repository name)<br>如：blog</p>
-<h5 id="配置blog项目的发布方式"><a href="#配置blog项目的发布方式" class="headerlink" title="配置blog项目的发布方式"></a>配置blog项目的发布方式</h5><p>安装git发布插件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
-<p>打开文件_config.xml，编辑如下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/maoerniu/maoerniu.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p>如果只需本地运行blog的话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></p>
-<p>部署到github<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></p>
-<p>以上命令都可以用一个字母简写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
-<h3 id="安装next主题"><a href="#安装next主题" class="headerlink" title="安装next主题"></a>安装next主题</h3><p>在博客目录下（Blog）运行git命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/iissnan/hexo-theme-next themes/next</span><br><span class="line"># 也就是在blog/themes下建立一个next文件夹，再把hexo-theme-next放到该文件夹下。</span><br></pre></td></tr></table></figure></p>
-<p>修改配置文件，设置主题<br>修改_config.yml，修改</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: landscape</span><br></pre></td></tr></table></figure>
-<p>为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure></p>
-<p>推送到github<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
-<h3 id="安装本地管理后台hexo-admin"><a href="#安装本地管理后台hexo-admin" class="headerlink" title="安装本地管理后台hexo-admin"></a>安装本地管理后台hexo-admin</h3><p>在博客目录下（Blog）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-admin --save</span><br><span class="line">$ hexo s</span><br><span class="line"># hexo-admin只能本地运行，所以不能是hexo d</span><br></pre></td></tr></table></figure></p>
-<p>在浏览器访问<a href="http://localhost:4000/admin" target="_blank" rel="noopener">http://localhost:4000/admin</a></p>
-
+        
       
     </div>
     
@@ -369,15 +350,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/05/10/XenServer/" rel="next" title="XenServer">
+                <i class="fa fa-chevron-left"></i> XenServer
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/03/CentOS7-5安装Cacti1-2-2/" rel="prev" title="CentOS7.5安装Cacti1.2.2">
-                CentOS7.5安装Cacti1.2.2 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -429,17 +410,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -483,22 +455,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Hexo"><span class="nav-text">安装Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化blog项目"><span class="nav-text">初始化blog项目</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置blog项目的发布方式"><span class="nav-text">配置blog项目的发布方式</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#安装next主题"><span class="nav-text">安装next主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装本地管理后台hexo-admin"><span class="nav-text">安装本地管理后台hexo-admin</span></a></li></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
