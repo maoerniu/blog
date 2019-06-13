@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、准备工作1.1安装必要的工具yum install -y wget vim net-tools git   1.2更换阿里yum123mv /etc/yum.repos.d /etc/yum.repos.d.backupmkdir /etc/yum.repos.dwget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7安装 Gitlab">
+<meta property="og:url" content="http://yoursite.com/2019/06/13/CentOS7安装-Gitlab/index.html">
+<meta property="og:site_name" content="二牛的博客">
+<meta property="og:description" content="一、准备工作1.1安装必要的工具yum install -y wget vim net-tools git   1.2更换阿里yum123mv /etc/yum.repos.d /etc/yum.repos.d.backupmkdir /etc/yum.repos.dwget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.co">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-13T13:30:06.951Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7安装 Gitlab">
+<meta name="twitter:description" content="一、准备工作1.1安装必要的工具yum install -y wget vim net-tools git   1.2更换阿里yum123mv /etc/yum.repos.d /etc/yum.repos.d.backupmkdir /etc/yum.repos.dwget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.co">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/13/CentOS7安装-Gitlab/">
+
+
+
+
+
+  <title>CentOS7安装 Gitlab | 二牛的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">二牛的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/13/CentOS7安装-Gitlab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="毛二牛">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/xiaoguan.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="二牛的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CentOS7安装 Gitlab</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-13T21:11:14+08:00">
+                2019-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h3><p><strong>1.1安装必要的工具</strong><br><code>yum install -y wget vim net-tools git</code>  </p>
+<p><strong>1.2更换阿里yum</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/yum.repos.d /etc/yum.repos.d.backup</span><br><span class="line">mkdir /etc/yum.repos.d</span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure></p>
+<p><strong>1.3重建缓存</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure></p>
+<h3 id="二、下载gitlab汉化包"><a href="#二、下载gitlab汉化包" class="headerlink" title="二、下载gitlab汉化包"></a>二、下载gitlab汉化包</h3><p><strong>2.1克隆汉化版本库</strong><br><code>git clone https://gitlab.com/xhang/gitlab.git</code><br><strong>2.2查看汉化补丁版本</strong><br><code>cat gitlab/VERSION</code></p>
+<h3 id="三、安装gitlab社区版"><a href="#三、安装gitlab社区版" class="headerlink" title="三、安装gitlab社区版"></a>三、安装gitlab社区版</h3><p><strong>3.1安装依赖包</strong><br><code>yum install -y curl openssh-server openssh-clients cronie policycoreutils-python</code><br>如果要在本机启动邮件服务，可以安装‘postfix’<br><strong>3.2获取gitlab的rpm包并安装</strong><br>下载和刚汉化包相同版本的额rpm包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-11.3.6-ce.0.el7.x86_64.rpm</span><br><span class="line">rpm -i gitlab-ce-11.3.6-ce.0.el7.x86_64.rpm</span><br></pre></td></tr></table></figure></p>
+<p>按提示修改配置文件<br><code>vim /etc/gitlab/gitlab.rb</code><br><em>external_url ‘<a href="http://192.168.100.152&#39;" target="_blank" rel="noopener">http://192.168.100.152&#39;</a></em><br><strong>3.3查看gitlab版本</strong><br><code>head -1 /opt/gitlab/version-manifest.txt</code></p>
+<h3 id="四、汉化包覆盖"><a href="#四、汉化包覆盖" class="headerlink" title="四、汉化包覆盖"></a>四、汉化包覆盖</h3><p><strong>4.1 停止服务并备份文件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl stop</span><br><span class="line">mkdir /home/bak</span><br><span class="line">cp -r /opt/gitlab/embedded/service/gitlab-rails/* /home/bak/</span><br></pre></td></tr></table></figure></p>
+<p><strong>4.2 去掉cp默认的-i属性，并覆盖</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unalias cp</span><br><span class="line">cp -rf /root/gitlab/* /opt/gitlab/embedded/service/gitlab-rails/</span><br></pre></td></tr></table></figure></p>
+<p><strong>4.3 重新配置，并启动</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br><span class="line">gitlab-ctl restart</span><br></pre></td></tr></table></figure></p>
+<p><strong>4.4 登录gitlab</strong><br><em><a href="http://192.168.100.152" target="_blank" rel="noopener">http://192.168.100.152</a></em></p>
+<h3 id="五、配置LDAP"><a href="#五、配置LDAP" class="headerlink" title="五、配置LDAP"></a>五、配置LDAP</h3><p><strong>5.1修改配置文件</strong><br><code>vim /etc/gitlab/gitlab.rb</code><br><code>gitlab_rails[&#39;ldap_enabled&#39;] = true</code>  </p>
+<p>取消以下内容的注释<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">gitlab_rails[&apos;ldap_servers&apos;] = YAML.load &lt;&lt;-&apos;EOS&apos;</span><br><span class="line">   main: # &apos;main&apos; is the GitLab &apos;provider ID&apos; of this LDAP server</span><br><span class="line">     label: &apos;LDAP&apos;</span><br><span class="line">     host: &apos;_your_ldap_server&apos;</span><br><span class="line">     port: 389</span><br><span class="line">     uid: &apos;sAMAccountName&apos;</span><br><span class="line">     bind_dn: &apos;_the_full_dn_of_the_user_you_will_bind_with&apos;</span><br><span class="line">     password: &apos;_the_password_of_the_bind_user&apos;</span><br><span class="line">     encryption: &apos;plain&apos; # &quot;start_tls&quot; or &quot;simple_tls&quot; or &quot;plain&quot;</span><br><span class="line">     verify_certificates: true</span><br><span class="line">     active_directory: true</span><br><span class="line">     allow_username_or_email_login: false</span><br><span class="line">     lowercase_usernames: false</span><br><span class="line">     block_auto_created_users: false</span><br><span class="line">     base: &apos;&apos;</span><br><span class="line">     user_filter: &apos;&apos;</span><br><span class="line">     ## EE only</span><br><span class="line">     group_base: &apos;&apos;</span><br><span class="line">     admin_group: &apos;&apos;</span><br><span class="line">     sync_ssh_keys: false</span><br></pre></td></tr></table></figure></p>
+<p>ps：后面还有一个EOF需要取消注释，不要漏掉。 </p>
+<p>代入自己的LDAP配置  </p>
+<p><strong>5.2 重新加载配置文件，重启gitlab</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br><span class="line">gitlab-ctl restart</span><br></pre></td></tr></table></figure></p>
+<h3 id="六、添加邮件回复功能"><a href="#六、添加邮件回复功能" class="headerlink" title="六、添加邮件回复功能"></a>六、添加邮件回复功能</h3><p><strong>6.1 找到配置文件，并取消注释</strong>  </p>
+<p>vim /etc/gitlab/gitlab.rb</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">### GitLab email server settings</span><br><span class="line">###! Docs: https://docs.gitlab.com/omnibus/settings/smtp.html</span><br><span class="line">###! **Use smtp instead of sendmail/postfix.**</span><br><span class="line"></span><br><span class="line"> gitlab_rails[&apos;smtp_enable&apos;] = true</span><br><span class="line"> gitlab_rails[&apos;smtp_address&apos;] = &quot;smtp.exmail.qq.com&quot;</span><br><span class="line"> gitlab_rails[&apos;smtp_port&apos;] = 465</span><br><span class="line"> gitlab_rails[&apos;smtp_user_name&apos;] = &quot;your_email_address&quot;</span><br><span class="line"> gitlab_rails[&apos;smtp_password&apos;] = &quot;your_email_passwd&quot;</span><br><span class="line"> gitlab_rails[&apos;smtp_domain&apos;] = &quot;exmail.qq.com&quot;</span><br><span class="line"> gitlab_rails[&apos;smtp_authentication&apos;] = &quot;login&quot;</span><br><span class="line"> gitlab_rails[&apos;smtp_enable_starttls_auto&apos;] = true</span><br><span class="line"> gitlab_rails[&apos;smtp_tls&apos;] = true</span><br><span class="line"> gitlab_rails[&apos;gitlab_email_enabled&apos;] = true</span><br><span class="line"> gitlab_rails[&apos;gitlab_email_from&apos;] = &quot;your_email_address&quot;</span><br><span class="line"> gitlab_rails[&apos;gitlab_email_display_name&apos;] = &apos;Gitlab&apos;</span><br></pre></td></tr></table></figure>
+<p>重新加载配置文件，重启gitlab</p>
+<p><strong>6.2 测试发送邮件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rails console</span><br><span class="line"></span><br><span class="line">Notify.test_email(&apos;to_email_address&apos;, &apos;邮件标题&apos;, &apos;邮件正文&apos;).deliver_now</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/13/Prometheus入门/" rel="next" title="Prometheus入门">
+                <i class="fa fa-chevron-left"></i> Prometheus入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/xiaoguan.jpeg" alt="毛二牛">
+            
+              <p class="site-author-name" itemprop="name">毛二牛</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、准备工作"><span class="nav-text">一、准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、下载gitlab汉化包"><span class="nav-text">二、下载gitlab汉化包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、安装gitlab社区版"><span class="nav-text">三、安装gitlab社区版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、汉化包覆盖"><span class="nav-text">四、汉化包覆盖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、配置LDAP"><span class="nav-text">五、配置LDAP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、添加邮件回复功能"><span class="nav-text">六、添加邮件回复功能</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">毛二牛</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
