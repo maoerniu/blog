@@ -259,244 +259,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/test/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="毛二牛">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/xiaoguan.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="二牛的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/10/test/" itemprop="url">test</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-10T23:10:00+08:00">
-                2019-05-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/XenServer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="毛二牛">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/xiaoguan.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="二牛的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/10/XenServer/" itemprop="url">XenServer</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-10T23:09:01+08:00">
-                2019-05-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/Prometheus入门/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -579,6 +341,19 @@ explorter: 采集器
 altermanager:报警器
     用来配置报警发送方式
 </code></pre><h5 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h5><p>监控服务器上部署Prometheus，altermanager，在需要被监控的机器上部署对应的explorter</p>
+<h5 id="优雅的启动prometheus"><a href="#优雅的启动prometheus" class="headerlink" title="优雅的启动prometheus"></a>优雅的启动prometheus</h5><p>#进入system目录，编写systemd服务脚本<br>cd /usr/lib/systemd/system<br>vim prometheus.service<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">  Description=Prometheus</span><br><span class="line">  Documentation=https://prometheus.io/docs/introduction/overview/</span><br><span class="line">  Wants=network-online.target</span><br><span class="line">  After=network-online.target</span><br><span class="line">  </span><br><span class="line">  [Service]</span><br><span class="line">  #User=prometheus  # 必须用该用户和相应的执行权限否则不能启动</span><br><span class="line">  #Group=prometheus</span><br><span class="line">  User=root</span><br><span class="line">  Group=root</span><br><span class="line">  Type=simple</span><br><span class="line">  ExecStart=/opt/prometheus/prometheus.sh  # 启动脚本</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  [Install]</span><br><span class="line">  WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
+<p>编写启动脚本：<br>vim /opt/prometheus/prometheus.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">/opt/prometheus/prometheus --config.file=/opt/prometheus/prometheus.yml &amp;&gt;&gt; /var/log/prometheus.log</span><br></pre></td></tr></table></figure></p>
+<p>启动prometheus<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload # 重新加载daemon</span><br><span class="line">systemctl start prometheus.service #启动</span><br><span class="line">systemctl status prometheus.service #查看启动状态</span><br><span class="line">systemctl enable prometheus.service #添加开机启动</span><br></pre></td></tr></table></figure></p>
+<h3 id="监控mysql"><a href="#监控mysql" class="headerlink" title="监控mysql"></a>监控mysql</h3><p>在被监控的mysql主机上操作<br>1 下载mysqld_exporter <a href="https://github.com/prometheus/mysqld_exporter/releases" target="_blank" rel="noopener">https://github.com/prometheus/mysqld_exporter/releases</a>  </p>
+<p>2 进入数据库创建用户并授权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; GRANT REPLICATION CLIENT, PROCESS ON *.* TO &apos;prometheus&apos;@&apos;localhost&apos; identified by &apos;prometheus&apos;;</span><br><span class="line">mysql&gt; GRANT SELECT ON performance_schema.* TO &apos;prometheus&apos;@&apos;localhost&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>3 创建.my.cnf文件<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat ~/.my.cnf</span><br><span class="line">[client]</span><br><span class="line">user=prometheus</span><br><span class="line">password=prometheus</span><br></pre></td></tr></table></figure></p>
+<p>默认情况下，运行./mysqld_exporter时，会去当前用户目录下查找.my.cnf, 可以通过参数–config.my-cnf=”yourpath/.my.cnf”, 参数–web.listen-address=:9104指定端口</p>
+<p>4 创建成服务<br>使用环境变量启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ vim /usr/lib/systemd/system/mysqld_exporter.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=mysqld_exporter</span><br><span class="line">After=network.target</span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=prometheus</span><br><span class="line">Environment=DATA_SOURCE_NAME=prometheus:prometheus@tcp(127.0.0.1:3306)/?loc=Local</span><br><span class="line">ExecStart=/opt/prometheus/mysqld_exporter/mysqld_exporter</span><br><span class="line">Restart=on-failure</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
+<p>使用配置文件启动<br>在mysqld_exporter目录下创建mysqld_exporter.sh启动脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">/opt/prometheus/mysqld_exporter/mysqld_exporter --config.my-cnf=&quot;/opt/prometheus/mysqld_exporter/.my.cnf&quot; --web.listen-address=:9104</span><br></pre></td></tr></table></figure></p>
+<p>创建mysqld_exporter.service文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ vim /usr/lib/systemd/system/mysqld_exporter.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=mysqld_exporter</span><br><span class="line">After=network.target</span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=prometheus</span><br><span class="line">#指定启动脚本路径</span><br><span class="line">ExecStart=/opt/prometheus/mysqld_exporter/mysqld_exporter.sh</span><br><span class="line">Restart=on-failure</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
+<p>上面两种方式任选一个<br><code>systemctl start mysqld_exporter</code><br>启动服务</p>
+<h3 id="监控redis"><a href="#监控redis" class="headerlink" title="监控redis"></a>监控redis</h3><p>下载redis_exporter, <a href="https://github.com/oliver006/redis_exporter/releases" target="_blank" rel="noopener">https://github.com/oliver006/redis_exporter/releases</a></p>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ go get github.com/oliver006/redis_exporter</span><br><span class="line">$ cd $GOPATH/src/github.com/oliver006/redis_exporter</span><br><span class="line">$ go build</span><br><span class="line">$ ./redis_exporter &lt;flags&gt;</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -952,7 +727,7 @@ altermanager:报警器
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
