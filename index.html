@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang>
+<html class="theme-next pisces use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -79,13 +79,16 @@
 
 
 
+<meta name="description" content="个人blog">
 <meta property="og:type" content="website">
 <meta property="og:title" content="二牛的博客">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="二牛的博客">
-<meta property="og:locale" content="default">
+<meta property="og:description" content="个人blog">
+<meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二牛的博客">
+<meta name="twitter:description" content="个人blog">
 
 
 
@@ -133,7 +136,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -157,7 +160,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">Happy Everyday</p>
       
   </div>
 
@@ -228,9 +231,41 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -330,33 +365,24 @@
       
         
           
-            <h3 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h3><p><strong>1.1安装必要的工具</strong><br><code>yum install -y wget vim net-tools git</code>  </p>
-<p><strong>1.2更换阿里yum</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/yum.repos.d /etc/yum.repos.d.backup</span><br><span class="line">mkdir /etc/yum.repos.d</span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure></p>
-<p><strong>1.3重建缓存</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure></p>
-<h3 id="二、下载gitlab汉化包"><a href="#二、下载gitlab汉化包" class="headerlink" title="二、下载gitlab汉化包"></a>二、下载gitlab汉化包</h3><p><strong>2.1克隆汉化版本库</strong><br><code>git clone https://gitlab.com/xhang/gitlab.git</code><br><strong>2.2查看汉化补丁版本</strong><br><code>cat gitlab/VERSION</code></p>
-<h3 id="三、安装gitlab社区版"><a href="#三、安装gitlab社区版" class="headerlink" title="三、安装gitlab社区版"></a>三、安装gitlab社区版</h3><p><strong>3.1安装依赖包</strong><br><code>yum install -y curl openssh-server openssh-clients cronie policycoreutils-python</code><br>如果要在本机启动邮件服务，可以安装‘postfix’<br><strong>3.2获取gitlab的rpm包并安装</strong><br>下载和刚汉化包相同版本的额rpm包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-11.3.6-ce.0.el7.x86_64.rpm</span><br><span class="line">rpm -i gitlab-ce-11.3.6-ce.0.el7.x86_64.rpm</span><br></pre></td></tr></table></figure></p>
-<p>按提示修改配置文件<br><code>vim /etc/gitlab/gitlab.rb</code><br><em>external_url ‘<a href="http://192.168.100.152&#39;" target="_blank" rel="noopener">http://192.168.100.152&#39;</a></em><br><strong>3.3查看gitlab版本</strong><br><code>head -1 /opt/gitlab/version-manifest.txt</code></p>
-<h3 id="四、汉化包覆盖"><a href="#四、汉化包覆盖" class="headerlink" title="四、汉化包覆盖"></a>四、汉化包覆盖</h3><p><strong>4.1 停止服务并备份文件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl stop</span><br><span class="line">mkdir /home/bak</span><br><span class="line">cp -r /opt/gitlab/embedded/service/gitlab-rails/* /home/bak/</span><br></pre></td></tr></table></figure></p>
-<p><strong>4.2 去掉cp默认的-i属性，并覆盖</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unalias cp</span><br><span class="line">cp -rf /root/gitlab/* /opt/gitlab/embedded/service/gitlab-rails/</span><br></pre></td></tr></table></figure></p>
-<p><strong>4.3 重新配置，并启动</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br><span class="line">gitlab-ctl restart</span><br></pre></td></tr></table></figure></p>
-<p><strong>4.4 登录gitlab</strong><br><em><a href="http://192.168.100.152" target="_blank" rel="noopener">http://192.168.100.152</a></em></p>
-<h3 id="五、配置LDAP"><a href="#五、配置LDAP" class="headerlink" title="五、配置LDAP"></a>五、配置LDAP</h3><p><strong>5.1修改配置文件</strong><br><code>vim /etc/gitlab/gitlab.rb</code><br><code>gitlab_rails[&#39;ldap_enabled&#39;] = true</code>  </p>
-<p>取消以下内容的注释<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">gitlab_rails[&apos;ldap_servers&apos;] = YAML.load &lt;&lt;-&apos;EOS&apos;</span><br><span class="line">   main: # &apos;main&apos; is the GitLab &apos;provider ID&apos; of this LDAP server</span><br><span class="line">     label: &apos;LDAP&apos;</span><br><span class="line">     host: &apos;_your_ldap_server&apos;</span><br><span class="line">     port: 389</span><br><span class="line">     uid: &apos;sAMAccountName&apos;</span><br><span class="line">     bind_dn: &apos;_the_full_dn_of_the_user_you_will_bind_with&apos;</span><br><span class="line">     password: &apos;_the_password_of_the_bind_user&apos;</span><br><span class="line">     encryption: &apos;plain&apos; # &quot;start_tls&quot; or &quot;simple_tls&quot; or &quot;plain&quot;</span><br><span class="line">     verify_certificates: true</span><br><span class="line">     active_directory: true</span><br><span class="line">     allow_username_or_email_login: false</span><br><span class="line">     lowercase_usernames: false</span><br><span class="line">     block_auto_created_users: false</span><br><span class="line">     base: &apos;&apos;</span><br><span class="line">     user_filter: &apos;&apos;</span><br><span class="line">     ## EE only</span><br><span class="line">     group_base: &apos;&apos;</span><br><span class="line">     admin_group: &apos;&apos;</span><br><span class="line">     sync_ssh_keys: false</span><br></pre></td></tr></table></figure></p>
-<p>ps：后面还有一个EOF需要取消注释，不要漏掉。 </p>
-<p>代入自己的LDAP配置  </p>
-<p><strong>5.2 重新加载配置文件，重启gitlab</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br><span class="line">gitlab-ctl restart</span><br></pre></td></tr></table></figure></p>
-<h3 id="六、添加邮件回复功能"><a href="#六、添加邮件回复功能" class="headerlink" title="六、添加邮件回复功能"></a>六、添加邮件回复功能</h3><p><strong>6.1 找到配置文件，并取消注释</strong>  </p>
-<p>vim /etc/gitlab/gitlab.rb</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">### GitLab email server settings</span><br><span class="line">###! Docs: https://docs.gitlab.com/omnibus/settings/smtp.html</span><br><span class="line">###! **Use smtp instead of sendmail/postfix.**</span><br><span class="line"></span><br><span class="line"> gitlab_rails[&apos;smtp_enable&apos;] = true</span><br><span class="line"> gitlab_rails[&apos;smtp_address&apos;] = &quot;smtp.exmail.qq.com&quot;</span><br><span class="line"> gitlab_rails[&apos;smtp_port&apos;] = 465</span><br><span class="line"> gitlab_rails[&apos;smtp_user_name&apos;] = &quot;your_email_address&quot;</span><br><span class="line"> gitlab_rails[&apos;smtp_password&apos;] = &quot;your_email_passwd&quot;</span><br><span class="line"> gitlab_rails[&apos;smtp_domain&apos;] = &quot;exmail.qq.com&quot;</span><br><span class="line"> gitlab_rails[&apos;smtp_authentication&apos;] = &quot;login&quot;</span><br><span class="line"> gitlab_rails[&apos;smtp_enable_starttls_auto&apos;] = true</span><br><span class="line"> gitlab_rails[&apos;smtp_tls&apos;] = true</span><br><span class="line"> gitlab_rails[&apos;gitlab_email_enabled&apos;] = true</span><br><span class="line"> gitlab_rails[&apos;gitlab_email_from&apos;] = &quot;your_email_address&quot;</span><br><span class="line"> gitlab_rails[&apos;gitlab_email_display_name&apos;] = &apos;Gitlab&apos;</span><br></pre></td></tr></table></figure>
-<p>重新加载配置文件，重启gitlab</p>
-<p><strong>6.2 测试发送邮件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rails console</span><br><span class="line"></span><br><span class="line">Notify.test_email(&apos;to_email_address&apos;, &apos;邮件标题&apos;, &apos;邮件正文&apos;).deliver_now</span><br></pre></td></tr></table></figure></p>
-
-          
+          一、准备工作1.1安装必要的工具yum install -y wget vim net-tools git  
+1.2更换阿里yum123mv /etc/yum.repos.d /etc/yum.repos.d.backupmkdir /etc/yum.repos.dwget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+1.3重建缓存12yum clean allyum mak
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/13/CentOS7安装-Gitlab/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
     
     
+    
+
     
 
     
@@ -469,7 +495,7 @@
       
         
           
-            <h3 id="一、简单介绍"><a href="#一、简单介绍" class="headerlink" title="一、简单介绍"></a>一、简单介绍</h3><h5 id="Prometheus组件"><a href="#Prometheus组件" class="headerlink" title="Prometheus组件"></a>Prometheus组件</h5><pre><code>Prometheus：监控服务，从被监控机上拉取监控信息，并通过配置的规则文件触发报警
+          一、简单介绍Prometheus组件Prometheus：监控服务，从被监控机上拉取监控信息，并通过配置的规则文件触发报警
 explorter: 采集器
     根据不同监控内容有不同采集器
     node-explorter
@@ -479,27 +505,22 @@ explorter: 采集器
     ...
 altermanager:报警器
     用来配置报警发送方式
-</code></pre><h5 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h5><p>监控服务器上部署Prometheus，altermanager，在需要被监控的机器上部署对应的explorter</p>
-<h5 id="优雅的启动prometheus"><a href="#优雅的启动prometheus" class="headerlink" title="优雅的启动prometheus"></a>优雅的启动prometheus</h5><p>#进入system目录，编写systemd服务脚本<br>cd /usr/lib/systemd/system<br>vim prometheus.service<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">  Description=Prometheus</span><br><span class="line">  Documentation=https://prometheus.io/docs/introduction/overview/</span><br><span class="line">  Wants=network-online.target</span><br><span class="line">  After=network-online.target</span><br><span class="line">  </span><br><span class="line">  [Service]</span><br><span class="line">  #User=prometheus  # 必须用该用户和相应的执行权限否则不能启动</span><br><span class="line">  #Group=prometheus</span><br><span class="line">  User=root</span><br><span class="line">  Group=root</span><br><span class="line">  Type=simple</span><br><span class="line">  ExecStart=/opt/prometheus/prometheus.sh  # 启动脚本</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  [Install]</span><br><span class="line">  WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
-<p>编写启动脚本：<br>vim /opt/prometheus/prometheus.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">/opt/prometheus/prometheus --config.file=/opt/prometheus/prometheus.yml &amp;&gt;&gt; /var/log/prometheus.log</span><br></pre></td></tr></table></figure></p>
-<p>启动prometheus<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload # 重新加载daemon</span><br><span class="line">systemctl start prometheus.service #启动</span><br><span class="line">systemctl status prometheus.service #查看启动状态</span><br><span class="line">systemctl enable prometheus.service #添加开机启动</span><br></pre></td></tr></table></figure></p>
-<h3 id="监控mysql"><a href="#监控mysql" class="headerlink" title="监控mysql"></a>监控mysql</h3><p>在被监控的mysql主机上操作<br>1 下载mysqld_exporter <a href="https://github.com/prometheus/mysqld_exporter/releases" target="_blank" rel="noopener">https://github.com/prometheus/mysqld_exporter/releases</a>  </p>
-<p>2 进入数据库创建用户并授权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; GRANT REPLICATION CLIENT, PROCESS ON *.* TO &apos;prometheus&apos;@&apos;localhost&apos; identified by &apos;prometheus&apos;;</span><br><span class="line">mysql&gt; GRANT SELECT ON performance_schema.* TO &apos;prometheus&apos;@&apos;localhost&apos;;</span><br></pre></td></tr></table></figure></p>
-<p>3 创建.my.cnf文件<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat ~/.my.cnf</span><br><span class="line">[client]</span><br><span class="line">user=prometheus</span><br><span class="line">password=prometheus</span><br></pre></td></tr></table></figure></p>
-<p>默认情况下，运行./mysqld_exporter时，会去当前用户目录下查找.my.cnf, 可以通过参数–config.my-cnf=”yourpath/.my.cnf”, 参数–web.listen-address=:9104指定端口</p>
-<p>4 创建成服务<br>使用环境变量启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ vim /usr/lib/systemd/system/mysqld_exporter.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=mysqld_exporter</span><br><span class="line">After=network.target</span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=prometheus</span><br><span class="line">Environment=DATA_SOURCE_NAME=prometheus:prometheus@tcp(127.0.0.1:3306)/?loc=Local</span><br><span class="line">ExecStart=/opt/prometheus/mysqld_exporter/mysqld_exporter</span><br><span class="line">Restart=on-failure</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
-<p>使用配置文件启动<br>在mysqld_exporter目录下创建mysqld_exporter.sh启动脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">/opt/prometheus/mysqld_exporter/mysqld_exporter --config.my-cnf=&quot;/opt/prometheus/mysqld_exporter/.my.cnf&quot; --web.listen-address=:9104</span><br></pre></td></tr></table></figure></p>
-<p>创建mysqld_exporter.service文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ vim /usr/lib/systemd/system/mysqld_exporter.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=mysqld_exporter</span><br><span class="line">After=network.target</span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=prometheus</span><br><span class="line">#指定启动脚本路径</span><br><span class="line">ExecStart=/opt/prometheus/mysqld_exporter/mysqld_exporter.sh</span><br><span class="line">Restart=on-failure</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
-<p>上面两种方式任选一个<br><code>systemctl start mysqld_exporter</code><br>启动服务</p>
-<h3 id="监控redis"><a href="#监控redis" class="headerlink" title="监控redis"></a>监控redis</h3><p>下载redis_exporter, <a href="https://github.com/oliver006/redis_exporter/releases" target="_blank" rel="noopener">https://github.com/oliver006/redis_exporter/releases</a></p>
-<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ go get github.com/oliver006/redis_exporter</span><br><span class="line">$ cd $GOPATH/src/github.com/oliver006/redis_exporter</span><br><span class="line">$ go build</span><br><span class="line">$ ./redis_exporter &lt;flags&gt;</span><br></pre></td></tr></table></figure></p>
-
-          
+部署监控服务器上部署Prometheus，altermana
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/13/Prometheus入门/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
     
     
+    
+
     
 
     
@@ -612,49 +633,24 @@ altermanager:报警器
       
         
           
-            <p>参考链接：<a href="https://blog.csdn.net/networken/article/details/81567337" target="_blank" rel="noopener">https://blog.csdn.net/networken/article/details/81567337</a></p>
-<h3 id="一、基础环境准备"><a href="#一、基础环境准备" class="headerlink" title="一、基础环境准备"></a>一、基础环境准备</h3><p>安装 Cacti 需要 Mysql，PHP，RRDTool，net-snmp 和 支持 PHP 的 Web服务器，如 Apache，Nginx 或 IIS等。<br>本次使用Mariabdb、PHP、Apache环境</p>
-<h4 id="1、环境搭建"><a href="#1、环境搭建" class="headerlink" title="1、环境搭建"></a>1、环境搭建</h4><h5 id="1-1、安装Mariadb"><a href="#1-1、安装Mariadb" class="headerlink" title="1.1、安装Mariadb"></a>1.1、安装Mariadb</h5><p>配置yum源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# cat &gt; /etc/yum.repos.d/MariaDB.repo &lt;&lt;EOF</span><br><span class="line">[mariadb]</span><br><span class="line">name = MariaDB</span><br><span class="line">baseurl = http://yum.mariadb.org/10.2/centos7-amd64</span><br><span class="line">gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB</span><br><span class="line">gpgcheck=1</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure></p>
-<p>安装mariadb server和mariadb client<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install -y MariaDB-server MariaDB-client MariaDB-devel</span><br></pre></td></tr></table></figure></p>
-<h5 id="1-2、安装httpd和php"><a href="#1-2、安装httpd和php" class="headerlink" title="1.2、安装httpd和php"></a>1.2、安装httpd和php</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# yum install -y httpd php</span><br></pre></td></tr></table></figure>
-<p>安装php扩展<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# yum install –y php-mysql php-snmp php-xml php-ldap php-gd php-mbstring php-posix</span><br></pre></td></tr></table></figure></p>
-<h5 id="1-3、安装net-snmp简单网络管理协议"><a href="#1-3、安装net-snmp简单网络管理协议" class="headerlink" title="1.3、安装net-snmp简单网络管理协议"></a>1.3、安装net-snmp简单网络管理协议</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# yum install –y net-snmp net-snmp-libs net-snmp-utils net-snmp-devel net-snmp-perl</span><br></pre></td></tr></table></figure>
-<h5 id="1-4、安装RRDTool-绘图工具"><a href="#1-4、安装RRDTool-绘图工具" class="headerlink" title="1.4、安装RRDTool 绘图工具"></a>1.4、安装RRDTool 绘图工具</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# yum install –y rrdtool rrdtool-devel rrdtool-php rrdtool-perl perl-devel perl-CPAN perl-YAML</span><br></pre></td></tr></table></figure>
-<h4 id="2、配置webserver"><a href="#2、配置webserver" class="headerlink" title="2、配置webserver"></a>2、配置webserver</h4><p>查看httpd.conf配置文件，确保包含以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# vim /etc/httpd/conf/httpd.conf</span><br><span class="line"># Load config files in the &quot;/etc/httpd/conf.d&quot; directory, if any.</span><br><span class="line">IncludeOptional conf.d/*.conf</span><br></pre></td></tr></table></figure></p>
-<p>配置php.conf配置文件，末尾添加以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# vim /etc/httpd/conf.d/php.conf</span><br><span class="line">........</span><br><span class="line">LoadModule php5_module modules/libphp5.so</span><br><span class="line">#</span><br><span class="line"># Cause the PHP interpreter to handle files with a .php extension.</span><br><span class="line">AddHandler php5-script .php</span><br><span class="line">AddType text/html .php</span><br><span class="line">#</span><br><span class="line"># Add index.php to the list of files that will be served as directory</span><br><span class="line"># indexes.</span><br><span class="line">DirectoryIndex index.php</span><br></pre></td></tr></table></figure></p>
-<p>启动httpd服务并设为开机启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]#systemctl start httpd &amp;&amp; systemctl enable httpd</span><br></pre></td></tr></table></figure></p>
-<h4 id="3、配置php"><a href="#3、配置php" class="headerlink" title="3、配置php"></a>3、配置php</h4><p>修改php.ini配置文件,添加或找到如下内容<br>关闭安全模式并修改时区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# vim /etc/php.ini</span><br><span class="line">[PHP]</span><br><span class="line">safe_mode = Off</span><br><span class="line">……</span><br><span class="line">date.timezone = Asia/Shanghai</span><br></pre></td></tr></table></figure></p>
-<p>测试php与apache解析是否正常，创建php测试页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# vim /var/www/html/index.php</span><br><span class="line">&lt;?php</span><br><span class="line">    phpinfo();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
-<p>重启httpd服务，并在浏览器里输入服务器ip地址测试<a href="http://ip，如果出现php详情页面说明php环境配置成功" target="_blank" rel="noopener">http://ip，如果出现php详情页面说明php环境配置成功</a></p>
-<h4 id="4、配置Mysql"><a href="#4、配置Mysql" class="headerlink" title="4、配置Mysql"></a>4、配置Mysql</h4><p>启动mysql数据库服务并设为开机启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# systemctl start mariadb &amp;&amp; systemctl enable mariadb</span><br></pre></td></tr></table></figure></p>
-<p>初始化MariaDB数据库,主要创建mysql数据库密码，然后全部Y下一步：</p>
-<p>修改mysql配置文件，在[mysqld]下增加如下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">character_set_server = utf8mb4</span><br><span class="line">collation-server = utf8mb4_unicode_ci</span><br><span class="line">max_heap_table_size = 256M</span><br><span class="line">max_allowed_packet = 16777216</span><br><span class="line">tmp_table_size = 128M</span><br><span class="line">join_buffer_size = 256M</span><br><span class="line">innodb_file_per_table = ON</span><br><span class="line">innodb_buffer_pool_size = 2048M</span><br><span class="line">innodb_doublewrite = OFF</span><br><span class="line">innodb_flush_log_at_timeout = 3</span><br><span class="line">innodb_read_io_threads = 32</span><br><span class="line">innodb_write_io_threads =16</span><br><span class="line">innodb_buffer_pool_instances = 19</span><br></pre></td></tr></table></figure></p>
-<p>数据库与php测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# vim /var/www/html/linkdb.php</span><br><span class="line">&lt;?php</span><br><span class="line">$a=mysql_connect(&quot;localhost&quot;,&quot;root&quot;,&quot;123456&quot;);</span><br><span class="line">if($a)&#123;echo &quot;ok&quot;;&#125;else&#123;echo &quot;err&quot;;&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
-<p>浏览器打开<a href="http://localhost/linkdb.php" target="_blank" rel="noopener">http://localhost/linkdb.php</a><br>显示ok说明配置正确</p>
-<h4 id="5、配置SNMP"><a href="#5、配置SNMP" class="headerlink" title="5、配置SNMP"></a>5、配置SNMP</h4><p>修改snmp配置文件，找到如下内容修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# vim /etc/snmp/snmpd.conf</span><br><span class="line">//修改default为本机ip，修改public为自己的团体名（可以不改），41行</span><br><span class="line">com2sec notConfigUser default public </span><br><span class="line">//把systemview改成all ,供所有snmp 访问权限  62行</span><br><span class="line">access notConfigGroup &quot;&quot; any noauth exact all none none   </span><br><span class="line">//去掉此行注释</span><br><span class="line">view all included .1 80 // 去掉#号 85行</span><br></pre></td></tr></table></figure></p>
-<p>重启snmp服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# systemctl restart snmpd.service &amp;&amp; systemctl enable snmpd.service</span><br></pre></td></tr></table></figure></p>
-<p>本机测试snmp数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# snmpwalk -v 2c -c public localhost system</span><br></pre></td></tr></table></figure></p>
-<p>远程测试snmp数据（修改ip为服务器ip，snmpwalk命令需要安装net-snmp）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# snmpwalk -v 2c -c public ip system</span><br></pre></td></tr></table></figure></p>
-<h3 id="二、安装和配置Cacti"><a href="#二、安装和配置Cacti" class="headerlink" title="二、安装和配置Cacti"></a>二、安装和配置Cacti</h3><h5 id="2-1下载安装包"><a href="#2-1下载安装包" class="headerlink" title="2.1下载安装包"></a>2.1下载安装包</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# wget https://github.com/Cacti/cacti/archive/release/1.2.2.tar.gz</span><br><span class="line">[root@cacti ~]# tar -zxvf 1.2.2.tar.gz</span><br><span class="line">[root@cacti ~]# cp -R cacti-release-1.2.2/ /var/www/html/cacti</span><br></pre></td></tr></table></figure>
-<h5 id="2-创建-cacti-数据库"><a href="#2-创建-cacti-数据库" class="headerlink" title="2.创建 cacti 数据库"></a>2.创建 cacti 数据库</h5><p>创建cacti数据库，创建数据库用户cactiuser，设置用户相关授权,使用默认cactiuser做为用户名和密码，后面不用修改配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# mysql –u root -p</span><br><span class="line">MariaDB [(none)]&gt; create database cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; grant all on cacti.* to cactiuser@localhost identified by &quot;cactiuser&quot;;</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; GRANT SELECT ON mysql.time_zone_name TO &apos;cactiuser&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;cactiuser&apos;;</span><br><span class="line"></span><br><span class="line">MariaDB [cacti]&gt; flush privileges;</span><br></pre></td></tr></table></figure></p>
-<h5 id="3-导入-Cacti-默认数据库"><a href="#3-导入-Cacti-默认数据库" class="headerlink" title="3.导入 Cacti 默认数据库"></a>3.导入 Cacti 默认数据库</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; use cacti;</span><br><span class="line"></span><br><span class="line">MariaDB [cacti]&gt; source /var/www/html/cacti/cacti.sql;</span><br></pre></td></tr></table></figure>
-<p>配置数据库时区：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# mysql_tzinfo_to_sql /usr/share/zoneinfo/ | mysql -u root -p mysql</span><br></pre></td></tr></table></figure></p>
-<h5 id="4-修改cacti配置文件config-php"><a href="#4-修改cacti配置文件config-php" class="headerlink" title="4. 修改cacti配置文件config.php"></a>4. 修改cacti配置文件config.php</h5><p>如果使用自定义数据库用户名密码，需要在这里修改一下配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# vim /var/www/html/cacti/include/config.php</span><br><span class="line"></span><br><span class="line">………………</span><br><span class="line"></span><br><span class="line">$database_type     = &apos;mysql&apos;;</span><br><span class="line">$database_default  = &apos;cacti&apos;;</span><br><span class="line">$database_hostname = &apos;localhost&apos;;</span><br><span class="line">$database_username = &apos;cactiuser&apos;;</span><br><span class="line">$database_password = &apos;cactiuser&apos;;</span><br><span class="line">$database_port     = &apos;3306&apos;;</span><br><span class="line">$database_ssl      = false;</span><br><span class="line"></span><br><span class="line">……………</span><br></pre></td></tr></table></figure></p>
-<h5 id="5、创建-cacti-系统用户，设置目录权限"><a href="#5、创建-cacti-系统用户，设置目录权限" class="headerlink" title="5、创建 cacti 系统用户，设置目录权限"></a>5、创建 cacti 系统用户，设置目录权限</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# useradd -r -M cacti</span><br><span class="line">[root@cacti ~]# chown -R cacti /var/www/html/cacti/&#123;rra,log&#125;/</span><br><span class="line">[root@cacti ~]# chown -R apache.apache /var/www/html/cacti/&#123;resource,cache,scripts&#125;/</span><br><span class="line">[root@cacti ~]# chmod -R 777 /var/www/html/cacti/</span><br></pre></td></tr></table></figure>
-<h5 id="6、添加定时任务"><a href="#6、添加定时任务" class="headerlink" title="6、添加定时任务"></a>6、添加定时任务</h5><p>将每1分钟执行一次的数据获取脚本加入crontab<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# crontab -e</span><br><span class="line">*/1 * * * * php /var/www/html/cacti/poller.php &gt; /dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure></p>
-<h5 id="7、重新启动相关服务"><a href="#7、重新启动相关服务" class="headerlink" title="7、重新启动相关服务"></a>7、重新启动相关服务</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# systemctl restart httpd &amp;&amp; systemctl restart mariadb</span><br><span class="line"></span><br><span class="line">[root@cacti ~]# systemctl restart crond &amp;&amp; systemctl restart snmpd</span><br></pre></td></tr></table></figure>
-<h3 id="三、安装spine"><a href="#三、安装spine" class="headerlink" title="三、安装spine"></a>三、安装spine</h3><p>cacti默认使用cmd.php来轮询数据，速度会很慢，因此我们采用Spine来轮询数据。cacti-spine是一个由C语言开发的，用于替代cmd.php的快速获取速度的引擎。（也可以不装）</p>
-<h5 id="安装spine高速数据采集插件"><a href="#安装spine高速数据采集插件" class="headerlink" title="安装spine高速数据采集插件"></a>安装spine高速数据采集插件</h5><p>下载与cacti同版本的spine<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti ~]# wget https://www.cacti.net/downloads/spine/cacti-spine-1.2.2.tar.gz</span><br><span class="line">[root@cacti ~]# yum install -y mysql-devel dos2unix autoconf automake binutils libtool gcc cpp glibc-headers glibc-devel help2man</span><br><span class="line">[root@cacti ~]# tar zxvf cacti-spine-1.2.2.tar.gz</span><br><span class="line">[root@cacti ~]# cp -R cacti-spine-1.2.2 /usr/local/spine</span><br><span class="line">[root@cacti ~]# cd /usr/local/spine</span><br><span class="line"># ln -s /usr/lib64/libmysqlclient.so.18.0.0 /usr/lib64/libmysqlclient.so</span><br><span class="line"># sh bootstrap </span><br><span class="line"># ./configure</span><br><span class="line"># make &amp;&amp; make install</span><br><span class="line"># chown root:root /usr/local/spine/bin/spine</span><br><span class="line"># chmod +s /usr/local/spine/bin/spine</span><br></pre></td></tr></table></figure></p>
-<p>编辑spine.conf,修改数据库连接相关信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># cp  /usr/local/spine/etc/spine.conf.dist /etc/spine.conf</span><br><span class="line"># vim /etc/spine.conf</span><br><span class="line">DB_Host localhost</span><br><span class="line">DB_Database cacti</span><br><span class="line">DB_User cactiuser</span><br><span class="line">DB_Pass cactiuser</span><br><span class="line">DB_Port 3306</span><br></pre></td></tr></table></figure></p>
-<p>进行初始化：<br>/usr/local/spine/bin/spine //执行此命令，成功后显示如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@cacti spine]# /usr/local/spine/bin/spine</span><br><span class="line">SPINE: Using spine config file [/etc/spine.conf]</span><br><span class="line">SPINE: Version 1.2.2 starting</span><br><span class="line">SPINE: Time: 0.0385 s, Threads: 5, Devices: 0</span><br></pre></td></tr></table></figure></p>
-<h3 id="四、初始化cacti"><a href="#四、初始化cacti" class="headerlink" title="四、初始化cacti"></a>四、初始化cacti</h3><p>重启httpd服务，在浏览器访问：<a href="http://ip/cacti，进入安装界面。" target="_blank" rel="noopener">http://ip/cacti，进入安装界面。</a><br>检查各个模块时，可能有部分错误，比如php配置参数和数据库配置参数，自行排查，修改配置后，重启相应服务即可，然后按提示按下一步即可。</p>
-
-          
+          参考链接：https://blog.csdn.net/networken/article/details/81567337
+一、基础环境准备安装 Cacti 需要 Mysql，PHP，RRDTool，net-snmp 和 支持 PHP 的 Web服务器，如 Apache，Nginx 或 IIS等。本次使用Mariabdb、PHP、Apache环境
+1、环境搭建1.1、安装Mariadb配置yum源1234567[root@cacti ~]# cat &gt; /etc/yum.repos.d/M
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/03/CentOS7-5安装Cacti1-2-2/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
     
     
+    
+
     
 
     
@@ -767,29 +763,27 @@ altermanager:报警器
       
         
           
-            <h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>首先安装nodejs环境，官网下载安装即可<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a></p>
-<h5 id="初始化blog项目"><a href="#初始化blog项目" class="headerlink" title="初始化blog项目"></a>初始化blog项目</h5><p>新建一个目录，如Blog，然后进入目录并运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure></p>
-<p>在github上创建博客项目(repository name)<br>如：blog</p>
-<h5 id="配置blog项目的发布方式"><a href="#配置blog项目的发布方式" class="headerlink" title="配置blog项目的发布方式"></a>配置blog项目的发布方式</h5><p>安装git发布插件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
-<p>打开文件_config.xml，编辑如下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/maoerniu/maoerniu.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p>如果只需本地运行blog的话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></p>
-<p>部署到github<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></p>
-<p>以上命令都可以用一个字母简写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
-<h3 id="安装next主题"><a href="#安装next主题" class="headerlink" title="安装next主题"></a>安装next主题</h3><p>在博客目录下（Blog）运行git命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/iissnan/hexo-theme-next themes/next</span><br><span class="line"># 也就是在blog/themes下建立一个next文件夹，再把hexo-theme-next放到该文件夹下。</span><br></pre></td></tr></table></figure></p>
-<p>修改配置文件，设置主题<br>修改_config.yml，修改</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: landscape</span><br></pre></td></tr></table></figure>
-<p>为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure></p>
-<p>推送到github<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
-<h3 id="安装本地管理后台hexo-admin"><a href="#安装本地管理后台hexo-admin" class="headerlink" title="安装本地管理后台hexo-admin"></a>安装本地管理后台hexo-admin</h3><p>在博客目录下（Blog）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-admin --save</span><br><span class="line">$ hexo s</span><br><span class="line"># hexo-admin只能本地运行，所以不能是hexo d</span><br></pre></td></tr></table></figure></p>
-<p>在浏览器访问<a href="http://localhost:4000/admin" target="_blank" rel="noopener">http://localhost:4000/admin</a></p>
-
-          
+          安装Hexo首先安装nodejs环境，官网下载安装即可https://nodejs.org/en/
+初始化blog项目新建一个目录，如Blog，然后进入目录并运行1$ hexo init
+在github上创建博客项目(repository name)如：blog
+配置blog项目的发布方式安装git发布插件1$ npm install hexo-deployer-git --save
+打开文件_config.xml，编辑如下内容
+1234deploy:  type: git  repo: htt
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/28/MAC上使用Hexo-github搭建自己的博客，添加主题，安装后台管理/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
     
     
+    
+
     
 
     
@@ -856,7 +850,7 @@ altermanager:报警器
               <img class="site-author-image" itemprop="image" src="/images/xiaoguan.jpeg" alt="毛二牛">
             
               <p class="site-author-name" itemprop="name">毛二牛</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">个人blog</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -917,20 +911,34 @@ altermanager:报警器
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
 
 
 
@@ -1077,6 +1085,323 @@ altermanager:报警器
 
 
   
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
 
 
 
